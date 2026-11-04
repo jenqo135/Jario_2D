@@ -1,1 +1,1 @@
-# Jario_2D
+Jario 2D: 2D platformer where the player battles waves of falling obstacles and defeats a circular boss.# Jario_2D
