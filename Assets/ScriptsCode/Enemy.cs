@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Движение")]
-    public float speed = 2f;
-    public float patrolDistance = 3f;
-    public int damage = 1;
+    // Требование: FSM из 3 состояний
+    public enum State { Patrol, AttackCooldown, Idle }
+    
+    [Header("State")]
+    [SerializeField] private State currentState = State.Patrol;
+
+    [Header("Settings")]
+    [SerializeField] private float speed = 2f; // Требование: SerializeField вместо public
+    [SerializeField] private float patrolDistance = 3f;
+    [SerializeField] private int damage = 1;
 
     private Vector3 startPos;
     private bool movingRight = true;
@@ -19,35 +25,41 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        // Простой переключатель состояний
+        switch (currentState)
+        {
+            case State.Patrol:
+                Move();
+                break;
+            case State.AttackCooldown:
+                // Отдыхает после удара
+                break;
+            case State.Idle:
+                // Стоит на месте
+                break;
+        }
+    }
+
+    void Move()
+    {
         float rightBound = startPos.x + patrolDistance;
         float leftBound = startPos.x - patrolDistance;
 
         if (movingRight)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
-            if (transform.position.x >= rightBound)
-            {
-                movingRight = false;
-                Flip();
-            }
+            if (transform.position.x >= rightBound) { movingRight = false; Flip(); }
         }
         else
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
-            if (transform.position.x <= leftBound)
-            {
-                movingRight = true;
-                Flip();
-            }
+            if (transform.position.x <= leftBound) { movingRight = true; Flip(); }
         }
     }
 
     void Flip()
     {
-        if (sr != null)
-        {
-            sr.flipX = !sr.flipX;
-        }
+        if (sr != null) sr.flipX = !sr.flipX;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -58,7 +70,11 @@ public class Enemy : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
+                currentState = State.AttackCooldown; // Переход в состояние задержки
+                Invoke(nameof(ResetState), 1f); // Через 1 сек возвращаемся к патрулю
             }
         }
     }
+
+    void ResetState() => currentState = State.Patrol;
 }
