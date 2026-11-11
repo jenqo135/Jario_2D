@@ -1357,7 +1357,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b8c3cdb8de6930d4c8bd46c15542485a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   - {fileID: 231026188}
   fullHeart: {fileID: 6566012524279936255, guid: 61cc45274a58d9049a36578eef014a2c, type: 3}
   emptyHeart: {fileID: 4232097057506949995, guid: d363c965c0cce004b9c5bdb2c4d10a8a, type: 3}
-  coinText: {fileID: 0}
+  coinText: {fileID: 1619214940}
 --- !u!114 &590153987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3642,7 +3642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
