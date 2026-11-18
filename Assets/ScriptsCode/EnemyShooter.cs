@@ -7,13 +7,11 @@ public class EnemyShooter : MonoBehaviour
     [Header("State")]
     [SerializeField] private State currentState = State.Patrol;
 
-    [Header("Raycast & Detection")]
-    [SerializeField] private float sightDistance = 7f;
-    [SerializeField] private LayerMask obstacleLayer; // Слой стен (чтобы Raycast не видел сквозь них)
+    [Header("Data & Detection")]
+    [SerializeField] private EnemyStats stats;
+    [SerializeField] private LayerMask obstacleLayer;
 
-    [Header("Attack Settings")]
-    [SerializeField] private float windUpTime = 0.6f;  // Время подготовки
-    [SerializeField] private float cooldownTime = 1.5f; // Время перезарядки
+    [Header("References")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
 
@@ -29,23 +27,22 @@ public class EnemyShooter : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null || stats == null) return;
 
         if (currentState == State.Patrol && CanSeePlayer())
         {
             currentState = State.Aiming;
-            if (sr) sr.color = Color.yellow; // Визуальное предупреждение (телеграфия)
-            Invoke(nameof(Shoot), windUpTime); // Ждем windUpTime секунд перед выстрелом
+            if (sr) sr.color = Color.yellow;
+            Invoke(nameof(Shoot), stats.windUpTime);
         }
     }
 
     bool CanSeePlayer()
     {
         float dist = Vector2.Distance(transform.position, player.position);
-        if (dist > sightDistance) return false;
+        if (dist > stats.sightDistance) return false;
 
         Vector2 dir = (player.position - transform.position).normalized;
-        // Проверяем Raycast: если между врагом и игроком есть стена — возвращаем false
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, dist, obstacleLayer);
         return hit.collider == null;
     }
@@ -59,7 +56,7 @@ public class EnemyShooter : MonoBehaviour
         
         currentState = State.Cooldown;
         if (sr) sr.color = Color.white;
-        Invoke(nameof(ResetState), cooldownTime);
+        Invoke(nameof(ResetState), stats.cooldownTime);
     }
 
     void ResetState() => currentState = State.Patrol;

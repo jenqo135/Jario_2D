@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1680226926eef478fbdca9d67ebe78, type: 3}
+  m_Name: Level_03
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelNumber: 3
+  levelName: Boss
+  timeLimit: 150
+  playerStartPos: {x: -6, y: -1}
+  gatePosition: {x: 15, y: 0}
+  enemies:
+  - prefab: {fileID: 9041877272905958409, guid: 0235bf47e06a87743b433943297123dd, type: 3}
+    position: {x: 5.62, y: -0.35}
+  collectibles: []

@@ -1,10 +1,10 @@
-using UnityEngine;
+                    using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 7f;
-    public float jumpForce = 20f;
+    [Header("Data")]
+    [SerializeField] private PlayerStats stats;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         if (grounded)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
             
             grounded = false;
             if (anim != null)
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(move.x * stats.speed, rb.linearVelocity.y);
 
         if (anim != null)
         {

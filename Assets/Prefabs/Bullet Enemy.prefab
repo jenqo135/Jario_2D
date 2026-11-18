@@ -170,5 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dfc2db5592282945bd4d0e17adb4781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletEnemy
-  speed: 8
-  damage: 1
+  balance: {fileID: 11400000, guid: bf4e5639073b3ea4eaa028be1942a2c2, type: 2}

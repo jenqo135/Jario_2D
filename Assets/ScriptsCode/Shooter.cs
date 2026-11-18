@@ -3,7 +3,7 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public float cooldown = 0.3f;
+    [SerializeField] private PlayerStats stats;
     private float nextShot;
     private SpriteRenderer sr;
 
@@ -21,7 +21,7 @@ public class Shooter : MonoBehaviour
     public void Shoot()
     {
         if (Time.time < nextShot) return;
-        nextShot = Time.time + cooldown;
+        nextShot = Time.time + stats.shootCooldown;
 
         Quaternion rotation = (sr != null && sr.flipX) ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
         Instantiate(bulletPrefab, transform.position, rotation);

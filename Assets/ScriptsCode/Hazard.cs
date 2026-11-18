@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Hazard : MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] protected GameBalanceData balance;
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -15,9 +18,9 @@ public class Hazard : MonoBehaviour
         }
     }
 
-
     protected virtual void OnHitPlayer(Health player)
     {
-        player.TakeDamage(1);
+        if (balance != null)
+            player.TakeDamage(balance.hazardDamage);
     }
 }

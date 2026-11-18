@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int hp = 3;
-    public int maxHp = 3;
+    [Header("Data")]
+    [SerializeField] private PlayerStats stats;
+    [HideInInspector] public int hp;
 
     private bool invincible = false;
     private SpriteRenderer sr;
@@ -15,6 +16,7 @@ public class Health : MonoBehaviour
 
     void Start()
     {
+        if (stats != null) hp = stats.maxHp;
         sr = GetComponent<SpriteRenderer>();
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
 
@@ -42,7 +44,7 @@ public class Health : MonoBehaviour
 
     public void Heal(int amount)
     {
-        hp = Mathf.Min(hp + amount, maxHp);
+        hp = Mathf.Min(hp + amount, stats.maxHp);
         UpdateHealthUI();
 
         if (audioSource != null && healClip != null) audioSource.PlayOneShot(healClip);

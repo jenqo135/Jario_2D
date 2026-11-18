@@ -4,7 +4,8 @@ public class BombHazard : Hazard
 {
     void Start()
     {
-        Invoke(nameof(Explode), 2f);
+        float fuseTime = balance != null ? balance.bombFuseTime : 2f;
+        Invoke(nameof(Explode), fuseTime);
     }
 
     void Explode()
@@ -14,6 +15,7 @@ public class BombHazard : Hazard
 
     protected override void OnHitPlayer(Health player)
     {
-        player.TakeDamage(2);
+        if (balance != null)
+            player.TakeDamage(balance.bombDamage);
     }
 }

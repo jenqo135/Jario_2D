@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 12f;
+    [SerializeField] private PlayerStats stats;
 
     void Start()
     {
@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.linearVelocity = transform.right * speed;
+            rb.linearVelocity = transform.right * stats.bulletSpeed;
         }
 
         Destroy(gameObject, 3f);
@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         BossController boss = other.GetComponent<BossController>();
         if (boss != null)
         {
-            boss.TakeDamage(1);
+            boss.TakeDamage(stats.bulletDamage);
             Destroy(gameObject);
             return;
         }

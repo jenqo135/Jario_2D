@@ -27,31 +27,37 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Подтягиваем сохранённые монеты при загрузке любого уровня
+        if (SaveManager.Instance != null)
+        {
+            totalCoins = SaveManager.Instance.Data.totalCoins;
+        }
+        UpdateCoinUI();
+    }
 
     public void UpdateHearts(int currentHealth)
-{
-    if (heartImages == null) return;
-
-    for (int i = 0; i < heartImages.Length; i++)
     {
-        if (heartImages[i] != null)
+        if (heartImages == null) return;
+
+        for (int i = 0; i < heartImages.Length; i++)
         {
-            if (i < currentHealth)
-            {
-                heartImages[i].sprite = fullHeart;
-            }
-            else
-            {
-                heartImages[i].sprite = emptyHeart;
-            }
+            if (heartImages[i] == null) continue;
+            heartImages[i].sprite = (i < currentHealth) ? fullHeart : emptyHeart;
         }
     }
-}
 
     public void AddCoin(int amount)
     {
         totalCoins += amount;
         UpdateCoinUI();
+
+        // Сразу сохраняем в SaveManager (save.json)
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.AddCoins(amount);
+        }
     }
 
     private void UpdateCoinUI()

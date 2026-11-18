@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85425cdd381ccb64dbd4f227325b99c4, type: 3}
+  m_Name: GameBalanceData
+  m_EditorClassIdentifier: Assembly-CSharp::GameBalanceData
+  coinValue: 1
+  hazardDamage: 1
+  bombDamage: 2
+  bombFuseTime: 2
+  heartHealAmount: 1
+  enemyBulletSpeed: 8
+  enemyBulletDamage: 1
+  bossMaxHp: 15
+  bossProjectilesCount: 6
+  bossProjectileSpeed: 10
+  bossAttackInterval: 2.5

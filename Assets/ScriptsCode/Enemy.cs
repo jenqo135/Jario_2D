@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Требование: FSM из 3 состояний
     public enum State { Patrol, AttackCooldown, Idle }
     
     [Header("State")]
     [SerializeField] private State currentState = State.Patrol;
 
-    [Header("Settings")]
-    [SerializeField] private float speed = 2f; // Требование: SerializeField вместо public
-    [SerializeField] private float patrolDistance = 3f;
-    [SerializeField] private int damage = 1;
+    [Header("Data")]
+    [SerializeField] private EnemyStats stats;
 
     private Vector3 startPos;
     private bool movingRight = true;
@@ -25,34 +22,33 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // Простой переключатель состояний
+        if (stats == null) return;
+
         switch (currentState)
         {
             case State.Patrol:
                 Move();
                 break;
             case State.AttackCooldown:
-                // Отдыхает после удара
                 break;
             case State.Idle:
-                // Стоит на месте
                 break;
         }
     }
 
     void Move()
     {
-        float rightBound = startPos.x + patrolDistance;
-        float leftBound = startPos.x - patrolDistance;
+        float rightBound = startPos.x + stats.patrolDistance;
+        float leftBound = startPos.x - stats.patrolDistance;
 
         if (movingRight)
         {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            transform.Translate(Vector2.right * stats.speed * Time.deltaTime);
             if (transform.position.x >= rightBound) { movingRight = false; Flip(); }
         }
         else
         {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            transform.Translate(Vector2.left * stats.speed * Time.deltaTime);
             if (transform.position.x <= leftBound) { movingRight = true; Flip(); }
         }
     }
@@ -64,14 +60,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && stats != null)
         {
             Health playerHealth = other.GetComponent<Health>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(damage);
-                currentState = State.AttackCooldown; // Переход в состояние задержки
-                Invoke(nameof(ResetState), 1f); // Через 1 сек возвращаемся к патрулю
+                playerHealth.TakeDamage(stats.damage);
+                currentState = State.AttackCooldown;
+                Invoke(nameof(ResetState), stats.cooldownTime);
             }
         }
     }

@@ -170,3 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7127cf55d335b0241909f6582c950d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombHazard
+  balance: {fileID: 11400000, guid: bf4e5639073b3ea4eaa028be1942a2c2, type: 2}
