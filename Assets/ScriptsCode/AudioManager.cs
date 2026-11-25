@@ -187,9 +187,15 @@ public class AudioManager : MonoBehaviour
 
     public void SetPausedSnapshot(bool isPaused)
     {
-        if (pausedSnapshot != null && isPaused)
-            pausedSnapshot.TransitionTo(0.25f);
-        else if (normalSnapshot != null && !isPaused)
-            normalSnapshot.TransitionTo(0.25f);
+        if (isPaused)
+        {
+            if (pausedSnapshot != null)
+                pausedSnapshot.TransitionTo(0f); // 0f срабатывает мгновенно даже при Time.timeScale = 0!
+        }
+        else
+        {
+            if (normalSnapshot != null)
+                normalSnapshot.TransitionTo(0.2f);
+        }
     }
 }

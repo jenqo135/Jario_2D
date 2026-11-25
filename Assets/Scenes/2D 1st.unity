@@ -3841,7 +3841,7 @@ MonoBehaviour:
   jumpClips:
   - {fileID: 8300000, guid: 76b28204854db954ab8a79270b50ea84, type: 3}
   hitClips:
-  - {fileID: 8300000, guid: 8df79b86167716940a9496665c8ef4df, type: 3}
+  - {fileID: 8300000, guid: 489a93d68922530488b1e9a65c947c0e, type: 3}
   pickupClips:
   - {fileID: 8300000, guid: 82f99a8df176c824091eb3205c4c72d5, type: 3}
   enemyWindupClip: {fileID: 8300000, guid: a5f9bb713cbbfaf4a846018181b0d1b7, type: 3}

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Health : MonoBehaviour
     [HideInInspector] public int hp;
 
     private bool invincible = false;
+    private bool isDead = false;
     private SpriteRenderer sr;
 
     public AudioSource audioSource;
@@ -25,34 +27,63 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (invincible) return;
+        if (invincible || isDead) return;
 
         hp -= amount;
         UpdateHealthUI();
 
-        if (AudioManager.Instance != null) AudioManager.Instance.PlayHit();
-
         if (hp <= 0)
         {
-            if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
+            hp = 0;
+            isDead = true;
+            Die();
         }
         else
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayHit();
             StartCoroutine(Invincibility());
+        }
+    }
+
+    private void Die()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDeath();
+        }
+
+        StartCoroutine(RestartLevelRoutine());
+    }
+
+    private IEnumerator RestartLevelRoutine()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        GameOverManager gom = FindFirstObjectByType<GameOverManager>();
+        if (gom != null)
+        {
+            gom.RestartScene();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
     public void Heal(int amount)
     {
+        if (isDead) return;
+
         hp = Mathf.Min(hp + amount, stats.maxHp);
         UpdateHealthUI();
 
-        if (audioSource != null && healClip != null) audioSource.PlayOneShot(healClip);
+        if (AudioManager.Instance != null && healClip != null)
+            AudioManager.Instance.PlaySFX(healClip);
     }
 
     void UpdateHealthUI()
     {
-
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateHearts(hp);
