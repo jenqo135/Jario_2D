@@ -39,5 +39,6 @@ public class GoalTrigger : MonoBehaviour
             LevelSpawner.SelectedLevel = null;
             SceneManager.LoadScene("Menu");
         }
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayWin();
     }
 }

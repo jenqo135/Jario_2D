@@ -18,17 +18,21 @@ public class BulletEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") || other.GetComponent<EnemyShooter>() != null)
-            return;
+        // Игнорируем других врагов и триггеры (монеты, зоны обзора, ворота)
+        if (other.CompareTag("Enemy") || other.isTrigger) return;
 
         if (other.CompareTag("Player"))
         {
             Health playerHealth = other.GetComponent<Health>();
-            if (playerHealth != null && balance != null)
+            if (playerHealth != null)
             {
-                playerHealth.TakeDamage(balance.enemyBulletDamage);
+                playerHealth.TakeDamage(1);
             }
             Destroy(gameObject);
+            return;
         }
+
+        // Любой твёрдый объект (стена, платформа, земля) уничтожает пулю
+        Destroy(gameObject);
     }
 }

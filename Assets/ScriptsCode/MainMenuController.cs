@@ -6,14 +6,15 @@ using TMPro;
 public class MainMenuController : MonoBehaviour
 {
     [Header("Scene & Level Assets")]
-    [SerializeField] private string gameSceneName = "2D 1st"; // Имя вашей игровой сцены
-    [SerializeField] private LevelData[] levels;              // Level_01, Level_02, Level_03
+    [SerializeField] private string gameSceneName = "2D 1st";
+    [SerializeField] private LevelData[] levels;
 
     [Header("Level Select Buttons")]
-    [SerializeField] private Button[] levelButtons;           // Кнопки Level 1, Level 2, Level 3
+    [SerializeField] private Button[] levelButtons;
 
-    [Header("Settings & Stats UI (Опционально)")]
-    [SerializeField] private Slider volumeSlider;
+    [Header("Settings & Stats UI")]
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
     [SerializeField] private TextMeshProUGUI coinsText;
 
     private void Start()
@@ -25,7 +26,6 @@ public class MainMenuController : MonoBehaviour
     {
         int unlocked = SaveManager.Instance != null ? SaveManager.Instance.Data.unlockedLevel : 1;
 
-        // Включаем только открытые уровни, остальные блокируем
         for (int i = 0; i < levelButtons.Length; i++)
         {
             if (levelButtons[i] != null)
@@ -37,28 +37,27 @@ public class MainMenuController : MonoBehaviour
 
         if (SaveManager.Instance != null)
         {
-            if (volumeSlider != null)
-            {
-                volumeSlider.SetValueWithoutNotify(SaveManager.Instance.Data.masterVolume);
-            }
+            if (musicSlider != null)
+                musicSlider.SetValueWithoutNotify(SaveManager.Instance.Data.musicVolume);
+
+            if (sfxSlider != null)
+                sfxSlider.SetValueWithoutNotify(SaveManager.Instance.Data.sfxVolume);
 
             if (coinsText != null)
-            {
                 coinsText.text = $"Coins: {SaveManager.Instance.Data.totalCoins}";
-            }
         }
     }
 
-    // Привязать к кнопкам уровней (индекс 0 = Level 1, индекс 1 = Level 2, индекс 2 = Level 3)
     public void StartLevel(int levelIndex)
     {
         if (levels == null || levelIndex < 0 || levelIndex >= levels.Length) return;
+
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayUIClick();
 
         LevelSpawner.SelectedLevel = levels[levelIndex];
         SceneManager.LoadScene(gameSceneName);
     }
 
-    // Привязать к кнопке "Play" / "Continue" (загружает последний открытый уровень)
     public void PlayContinue()
     {
         int unlocked = SaveManager.Instance != null ? SaveManager.Instance.Data.unlockedLevel : 1;
@@ -66,21 +65,36 @@ public class MainMenuController : MonoBehaviour
         StartLevel(targetIndex);
     }
 
-    // Привязать к OnValueChanged у Slider громкости
-    public void OnVolumeChanged(float value)
+    // Привязать к OnValueChanged у слайдера Music
+    public void OnMusicVolumeChanged(float value)
     {
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.SetVolume(value);
-        }
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMusicVolume(value, true);
+        else if (SaveManager.Instance != null)
+            SaveManager.Instance.SetMusicVolume(value);
     }
 
-    // Привязать к кнопке "Reset Save" (удобно для демонстрации на защите)
+    // Привязать к OnValueChanged у слайдера SFX
+    public void OnSFXVolumeChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetSFXVolume(value, true);
+        else if (SaveManager.Instance != null)
+            SaveManager.Instance.SetSFXVolume(value);
+    }
+
     public void OnResetSaveClicked()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayUIClick();
+
         if (SaveManager.Instance != null)
         {
             SaveManager.Instance.ResetSave();
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.SetMusicVolume(SaveManager.Instance.Data.musicVolume, false);
+                AudioManager.Instance.SetSFXVolume(SaveManager.Instance.Data.sfxVolume, false);
+            }
             RefreshUI();
         }
     }

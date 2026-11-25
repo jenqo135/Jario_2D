@@ -15,8 +15,9 @@ MonoBehaviour:
   levelNumber: 2
   levelName: Enemies
   timeLimit: 120
+  levelMapPrefab: {fileID: 8652767674123928738, guid: d90ae3ee717c0f542a849562eab2f412, type: 3}
   playerStartPos: {x: -3.9, y: -1}
-  gatePosition: {x: 7.45, y: 1.06}
+  gatePosition: {x: 7.45, y: 3.6}
   enemies:
   - prefab: {fileID: 4867539299784236282, guid: 7f6f726239f709b48beceef50c545b34, type: 3}
     position: {x: -6.25, y: 2.44}
@@ -26,7 +27,7 @@ MonoBehaviour:
     position: {x: 7.4, y: -1.57}
   collectibles:
   - prefab: {fileID: 1578409436701084396, guid: 6644ed02d4466434ca1231636428ea65, type: 3}
-    position: {x: -7.3, y: -2.1}
+    position: {x: -7.32, y: -2.1}
   - prefab: {fileID: 1578409436701084396, guid: 6644ed02d4466434ca1231636428ea65, type: 3}
     position: {x: -8.25, y: 2.15}
   - prefab: {fileID: 1578409436701084396, guid: 6644ed02d4466434ca1231636428ea65, type: 3}

@@ -22,6 +22,11 @@ public class PauseManager : MonoBehaviour
             pausePanel.SetActive(isPaused);
 
         Time.timeScale = isPaused ? 0f : 1f;
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayUIClick();
+            AudioManager.Instance.SetPausedSnapshot(true);
+        }
     }
 
     public void ResumeGame()
@@ -30,6 +35,11 @@ public class PauseManager : MonoBehaviour
         if (pausePanel != null)
             pausePanel.SetActive(false);
         Time.timeScale = 1f;
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayUIClick();
+            AudioManager.Instance.SetPausedSnapshot(false);
+        }
     }
 
     public void RestartLevel()
@@ -42,5 +52,10 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayUIClick();
+            AudioManager.Instance.SetPausedSnapshot(false);
+        }
     }
 }

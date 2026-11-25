@@ -15,7 +15,7 @@ MonoBehaviour:
   speed: 2
   patrolDistance: 3
   damage: 1
-  sightDistance: 7
+  sightDistance: 15
   windUpTime: 0.6
   cooldownTime: 1.5
   chargeSpeed: 12

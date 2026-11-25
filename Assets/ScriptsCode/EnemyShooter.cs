@@ -32,6 +32,8 @@ public class EnemyShooter : MonoBehaviour
         if (currentState == State.Patrol && CanSeePlayer())
         {
             currentState = State.Aiming;
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayEnemyWindup();
             if (sr) sr.color = Color.yellow;
             Invoke(nameof(Shoot), stats.windUpTime);
         }

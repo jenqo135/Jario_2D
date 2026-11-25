@@ -38,8 +38,11 @@ public class BossController : MonoBehaviour
 
     IEnumerator ShootInAllDirectionsRoutine()
     {
+        
         while (currentHp > 0)
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayEnemyWindup();
             yield return new WaitForSeconds(balance.bossAttackInterval);
             SpawnRadialWave();
         }

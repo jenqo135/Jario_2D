@@ -30,11 +30,11 @@ public class Health : MonoBehaviour
         hp -= amount;
         UpdateHealthUI();
 
-        if (audioSource != null && hurtClip != null) audioSource.PlayOneShot(hurtClip);
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayHit();
 
         if (hp <= 0)
         {
-            GetComponent<GameOverManager>()?.RestartScene();
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
         }
         else
         {

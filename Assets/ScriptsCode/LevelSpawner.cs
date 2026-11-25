@@ -40,19 +40,25 @@ public class LevelSpawner : MonoBehaviour
     {
         remainingTime = data.timeLimit;
 
+        // 1. Спавним платформы и стены этого уровня
+        if (data.levelMapPrefab != null)
+            Instantiate(data.levelMapPrefab, Vector3.zero, Quaternion.identity);
+
+        // 2. Ставим игрока и ворота
         if (player != null)
             player.position = data.playerStartPos;
 
-        // Перемещаем ваши ворота со сцены в точку из LevelData
         if (gateObject != null)
             gateObject.position = data.gatePosition;
 
+        // 3. Спавним врагов
         foreach (var enemy in data.enemies)
         {
             if (enemy.prefab != null)
                 Instantiate(enemy.prefab, enemy.position, Quaternion.identity);
         }
 
+        // 4. Спавним монеты и предметы
         foreach (var item in data.collectibles)
         {
             if (item.prefab != null)

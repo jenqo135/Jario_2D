@@ -13,8 +13,11 @@ public class LevelData : ScriptableObject
 {
     [Header("General Info")]
     public int levelNumber = 1;
-    public string levelName = "Forest Start";
-    public float timeLimit = 90f;
+    public string levelName = "Level 1";
+    public float timeLimit = 60f;
+
+    [Header("Level Geometry (Platforms & Walls)")]
+    public GameObject levelMapPrefab; // Префаб сетки/платформ этого уровня
 
     [Header("Player & Gate")]
     public Vector2 playerStartPos = new Vector2(-6f, 0f);

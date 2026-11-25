@@ -36,7 +36,9 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetBool("IsGrounded", false);
             }
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayJump();
         }
+       
     }
 
     public void OnFire()

@@ -15,9 +15,12 @@ MonoBehaviour:
   levelNumber: 1
   levelName: Drop
   timeLimit: 15
+  levelMapPrefab: {fileID: 5086192092596979310, guid: 9e66df5c0e011104ead391305c3da670, type: 3}
   playerStartPos: {x: 0, y: -1}
-  gatePosition: {x: 8, y: 0.18}
-  enemies: []
+  gatePosition: {x: 8, y: 2.1}
+  enemies:
+  - prefab: {fileID: 4867539299784236282, guid: 7f6f726239f709b48beceef50c545b34, type: 3}
+    position: {x: -7.06, y: -1.97}
   collectibles:
   - prefab: {fileID: 1578409436701084396, guid: 6644ed02d4466434ca1231636428ea65, type: 3}
     position: {x: -5, y: -2}

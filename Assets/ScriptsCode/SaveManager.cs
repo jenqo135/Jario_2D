@@ -5,9 +5,10 @@ using UnityEngine;
 [Serializable]
 public class GameSaveData
 {
-    public int unlockedLevel = 1;      // 1 = открыт только 1-й уровень, 2 = 1 и 2, 3 = все
-    public int totalCoins = 0;         // Общее количество монет
-    public float masterVolume = 1.0f;  // Настройка громкости (0.0 - 1.0)
+    public int unlockedLevel = 1;
+    public int totalCoins = 0;
+    public float musicVolume = 0.8f; // Громкость музыки (0.0001 - 1.0)
+    public float sfxVolume = 0.8f;   // Громкость звуков (0.0001 - 1.0)
 }
 
 public class SaveManager : MonoBehaviour
@@ -69,7 +70,6 @@ public class SaveManager : MonoBehaviour
             }
 
             Data = loadedData;
-            AudioListener.volume = Data.masterVolume;
             Debug.Log($"[SaveManager] Прогресс загружен! Открыт уровень: {Data.unlockedLevel}, Монеты: {Data.totalCoins}");
         }
         catch (Exception e)
@@ -97,17 +97,21 @@ public class SaveManager : MonoBehaviour
         SaveGame();
     }
 
-    public void SetVolume(float volume)
+    public void SetMusicVolume(float volume)
     {
-        Data.masterVolume = Mathf.Clamp01(volume);
-        AudioListener.volume = Data.masterVolume;
+        Data.musicVolume = Mathf.Clamp(volume, 0.0001f, 1f);
+        SaveGame();
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        Data.sfxVolume = Mathf.Clamp(volume, 0.0001f, 1f);
         SaveGame();
     }
 
     public void ResetSave()
     {
         Data = new GameSaveData();
-        AudioListener.volume = Data.masterVolume;
         SaveGame();
         Debug.Log("[SaveManager] Сохранение сброшено.");
     }
@@ -125,4 +129,4 @@ public class SaveManager : MonoBehaviour
     {
         SaveGame();
     }
-}
+}   

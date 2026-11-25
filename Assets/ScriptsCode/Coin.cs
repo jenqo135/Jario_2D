@@ -23,7 +23,7 @@ public class Coin : MonoBehaviour
 
             if (collectSound != null)
             {
-                AudioSource.PlayClipAtPoint(collectSound, transform.position);
+                if (AudioManager.Instance != null) AudioManager.Instance.PlayPickup();
             }
 
             Destroy(gameObject);

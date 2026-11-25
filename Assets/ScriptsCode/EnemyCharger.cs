@@ -37,6 +37,9 @@ public class EnemyCharger : MonoBehaviour
             
             if (sr) sr.color = Color.red;
             Invoke(nameof(StartCharge), stats.windUpTime);
+
+            if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayEnemyWindup();
         }
     }
 

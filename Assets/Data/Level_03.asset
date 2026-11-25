@@ -15,6 +15,7 @@ MonoBehaviour:
   levelNumber: 3
   levelName: Boss
   timeLimit: 150
+  levelMapPrefab: {fileID: 1076065923171231129, guid: 16d95ba9a78582e429e39fefb5b3e449, type: 3}
   playerStartPos: {x: -6, y: -1}
   gatePosition: {x: 15, y: 0}
   enemies:

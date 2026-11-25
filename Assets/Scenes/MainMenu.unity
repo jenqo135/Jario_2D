@@ -1255,6 +1255,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539251101}
   m_CullTransparentMesh: 1
+--- !u!1 &543414522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 543414523}
+  - component: {fileID: 543414524}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &543414523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543414522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1140, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &543414524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543414522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215059b122bdff649b53612aa1e36bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  mainMixer: {fileID: 24100000, guid: b83d2a43e3bd71e4c9431242f2e2cb2c, type: 2}
+  musicGroup: {fileID: 7901826566718844645, guid: b83d2a43e3bd71e4c9431242f2e2cb2c, type: 2}
+  sfxGroup: {fileID: 2158604332732358925, guid: b83d2a43e3bd71e4c9431242f2e2cb2c, type: 2}
+  normalSnapshot: {fileID: 24500006, guid: b83d2a43e3bd71e4c9431242f2e2cb2c, type: 2}
+  pausedSnapshot: {fileID: 8603761737549804008, guid: b83d2a43e3bd71e4c9431242f2e2cb2c, type: 2}
+  menuMusic: {fileID: 8300000, guid: 4010cbbe0bbe12747ac85e968d86aa04, type: 3}
+  levelMusic: {fileID: 8300000, guid: 7e9dfa8c877eca246bb7210186b525e4, type: 3}
+  crossfadeDuration: 1
+  jumpClips:
+  - {fileID: 8300000, guid: 76b28204854db954ab8a79270b50ea84, type: 3}
+  hitClips:
+  - {fileID: 8300000, guid: 8df79b86167716940a9496665c8ef4df, type: 3}
+  pickupClips:
+  - {fileID: 8300000, guid: 82f99a8df176c824091eb3205c4c72d5, type: 3}
+  enemyWindupClip: {fileID: 8300000, guid: a5f9bb713cbbfaf4a846018181b0d1b7, type: 3}
+  deathClip: {fileID: 8300000, guid: 154269cb04c1db447b8fe8d1120afd14, type: 3}
+  uiClickClip: {fileID: 8300000, guid: c8ccdb331f45054439b1d7eb31c7e150, type: 3}
+  winClip: {fileID: 8300000, guid: fc51a48d51fc1f54495e4c81e60e4145, type: 3}
+  loseClip: {fileID: 8300000, guid: 518cebcb04d3f1a4288278835b0f25c2, type: 3}
 --- !u!1 &604919023
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2712,8 @@ MonoBehaviour:
   - {fileID: 887589349}
   - {fileID: 2061097998}
   - {fileID: 181570698}
-  volumeSlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
   coinsText: {fileID: 0}
 --- !u!1 &1552584892
 GameObject:
@@ -3787,3 +3851,4 @@ SceneRoots:
   - {fileID: 791318276}
   - {fileID: 990259708}
   - {fileID: 1531957449}
+  - {fileID: 543414523}
